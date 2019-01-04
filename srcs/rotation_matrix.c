@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:31:59 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/04 22:14:49 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/04 22:28:39 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void		rotation_matrix(t_point *dot, t_point ang, t_var *c)
 
 	dot->x -= c->opt->x0;
 	dot->y -= c->opt->y0;
-	dot->z -= c->opt->z0 / 2;
+	if (c->opt->min >= 0)
+		dot->z -= c->opt->z0 / 2;
 	v.x = dot->x;
 	v.z = dot->z;
 	dot->x = cos(ang.y) * v.x + sin(ang.y) * v.z;
