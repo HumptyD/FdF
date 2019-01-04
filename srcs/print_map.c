@@ -6,11 +6,37 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 18:42:55 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/03 19:45:25 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/04 22:10:02 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	set_color(t_var *c)
+{
+	double	third;
+
+	if (!c->opt->is_color)
+	{
+		third = c->opt->z0 / 3;
+		if (c->a.z < 0)
+			c->a.color = 0x4C2908;
+		else if (c->a.z <= third)
+			c->a.color = 0xDB4A4A;
+		else if (c->a.z <= third * 2)
+			c->a.color = 0xD67022;
+		else if (c->a.z <= c->opt->z0)
+			c->a.color = 0xE5D120;
+		if (c->b.z < 0)
+			c->b.color = 0x4C2908;
+		else if (c->b.z <= third)
+			c->b.color = 0xDB4A4A;
+		else if (c->b.z <= third * 2)
+			c->b.color = 0xD67022;
+		else if (c->b.z <= c->opt->z0)
+			c->b.color = 0xE5D120;
+	}
+}
 
 static void	display_p(t_var *c, t_pline *var, double *percent)
 {
@@ -64,22 +90,11 @@ void		print_map(t_var c)
 	{
 		c.a = *((t_line *)c.seg->content)->a;
 		c.b = *((t_line *)c.seg->content)->b;
+		set_color(&c);
 		rotation_matrix(&c.a, c.ang, &c);
 		rotation_matrix(&c.b, c.ang, &c);
 		put_line(&c);
 		c.seg = c.seg->next;
 	}
-	mlx_put_image_to_window(c.mlx, c.win, c.image, 0, 0);
-}
-
-void		init_map(t_var *c)
-{
-	(c->ang).x = 0.;
-	(c->ang).y = 0.;
-	(c->ang).z = 0.;
-	c->scale = c->w > c->h ? (W_WIDTH / c->w) / 2 : (W_HEIGHT / c->h) / 2;
-	c->scale = c->scale < 1 ? 1 : c->scale;
-	c->hor = 0;
-	c->vert = 0;
-	c->ms.pressed = 0;
+	mlx_put_image_to_window(c.mlx, c.win, c.img->image, 0, 0);
 }

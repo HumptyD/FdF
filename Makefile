@@ -6,7 +6,7 @@
 #    By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/08 14:33:53 by jlucas-l          #+#    #+#              #
-#    Updated: 2018/12/28 21:20:34 by jlucas-l         ###   ########.fr        #
+#    Updated: 2019/01/04 18:46:22 by jlucas-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = main.c \
 	   read.c \
 	   image.c \
 	   rotation_matrix.c \
+	   init.c \
 	   secondary.c
 
 OBJS = $(addprefix $(OBJ_D)/,$(SRCS:.c=.o))

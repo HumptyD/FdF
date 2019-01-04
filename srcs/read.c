@@ -6,19 +6,22 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 19:46:48 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/03 16:41:18 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/04 21:20:07 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		read_color(char *str)
+static int		read_color(char *str, t_var *c)
 {
 	int	res;
 
 	res = 0xFFFFFF;
 	if (str)
+	{
 		res = ft_atoi_base(++str, 16);
+		c->opt->is_color = 1;
+	}
 	return (res);
 }
 
@@ -51,7 +54,7 @@ static t_list	*get_segments(t_list **lst, int size)
 	return (v.segment);
 }
 
-static void		save_coords(char **td_arr, t_list **lst, int y)
+static void		save_coords(char **td_arr, t_list **lst, int y, t_var *c)
 {
 	int		x;
 	t_point	point;
@@ -62,7 +65,11 @@ static void		save_coords(char **td_arr, t_list **lst, int y)
 		point.x = x;
 		point.y = y;
 		point.z = ft_atoi(td_arr[x]);
-		point.color = read_color(ft_strchr(td_arr[x], ','));
+		if (point.z > c->opt->max)
+			c->opt->max = point.z;
+		if (point.z < c->opt->min)
+			c->opt->min = point.z;
+		point.color = read_color(ft_strchr(td_arr[x], ','), c);
 		ft_lstadd(lst, ft_lstnew(&point, sizeof(t_point)));
 	}
 }
@@ -82,8 +89,6 @@ void			read_map(int fd, t_list **lst, t_var *c)
 	char	*line;
 	char	**td_arr;
 
-	c->h = 0;
-	c->w = -1;
 	while (get_next_line(fd, &line))
 	{
 		display_error(!(td_arr = ft_strsplit(line, ' ')),
@@ -91,7 +96,7 @@ void			read_map(int fd, t_list **lst, t_var *c)
 		if (c->w == -1)
 			c->w = count_points(td_arr);
 		display_error((c->w != count_points(td_arr)), "error: invalid file");
-		save_coords(td_arr, lst, c->h);
+		save_coords(td_arr, lst, c->h, c);
 		free_arr(&td_arr, c->w);
 		c->h++;
 	}

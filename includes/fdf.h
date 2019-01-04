@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 16:08:26 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/03 18:52:16 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/04 22:17:36 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define W_WIDTH 2560
 # define W_HEIGHT 1300
+# define ALPHA 0.523599
 
 typedef struct	s_point
 {
@@ -64,6 +65,31 @@ typedef struct	s_mouse
 	int			pressed;
 }				t_mouse;
 
+typedef struct	s_img
+{
+	void		*image;
+	char		*ptr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_img;
+
+typedef	struct	s_options
+{
+	double		x0;
+	double		y0;
+	double		z0;
+	double		size;
+	double		scale;
+	double		iso_scale;
+	int			max;
+	int			min;
+	int			hor;
+	int			vert;
+	int			proection;
+	int			is_color;
+}				t_options;
+
 typedef struct	s_var
 {
 	void		*mlx;
@@ -73,20 +99,16 @@ typedef struct	s_var
 	t_point		b;
 	t_list		*seg;
 	t_mouse		ms;
+	t_img		*img;
+	t_options	*opt;
 	int			w;
 	int			h;
-	double		scale;
-	int			hor;
-	int			vert;
-	void		*image;
-	char		*ptr;
-	int			bpp;
-	int			size_line;
-	int			endian;
 }				t_var;
 
 void			put_line(t_var *c);
+void			init_var(t_var *c);
 void			init_map(t_var *c);
+void			init_default(t_var *c);
 void			rotation_matrix(t_point *dot, t_point ang, t_var *c);
 void			display_error(int cond, char *str);
 void			free_arr(char ***arr, int size);
@@ -96,7 +118,8 @@ int				mouse_press(int button, int x, int y, t_var *c);
 int				mouse_release(int button, int x, int y, t_var *c);
 int				mouse_move(int x, int y, t_var *c);
 void			print_map(t_var c);
-void			init_image(t_var c);
+void			init_image(t_var *c);
+void			clear_image(t_img *img);
 void			set_pixel(t_var *c, int x, int y, int color);
 int				get_color(int start, int end, double percent);
 int				ft_lerpi(int first, int second, double percent);
