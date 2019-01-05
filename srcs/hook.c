@@ -6,17 +6,41 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 14:41:18 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/05 18:56:40 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 20:17:02 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		keyboard(int key, t_var *c)
+void		keyboard2(int key, t_var *c)
+{
+	key == 87 ? c->ang.y += 0.0523599 : 0;
+	key == 84 ? c->ang.y -= 0.0523599 : 0;
+	key == 86 ? c->ang.x += 0.0523599 : 0;
+	key == 83 ? c->ang.x -= 0.0523599 : 0;
+	key == 88 ? c->ang.z += 0.0523599 : 0;
+	key == 85 ? c->ang.z -= 0.0523599 : 0;
+	key == 69 ? c->opt->size *= 1.1 : 0;
+	key == 78 ? c->opt->size *= 0.9 : 0;
+	key == 13 ? c->opt->vert -= 10 : 0;
+	key == 1 ? c->opt->vert += 10 : 0;
+	key == 0 ? c->opt->hor -= 10 : 0;
+	key == 2 ? c->opt->hor += 10 : 0;
+	key == 27 ? c->opt->w *= 1.1 : 0;
+	if (key == 24)
+	{
+		c->opt->w *= 0.9;
+		if (c->opt->w < c->opt->z0)
+			c->opt->w = c->opt->z0;
+		if (c->opt->w < c->w || c->opt->w < c->h)
+			c->opt->w = c->w < c->h ? c->h : c->w;
+	}
+}
+
+int			keyboard(int key, t_var *c)
 {
 	clear_image(c->img);
-	if (key == 53)
-		exit(0);
+	key == 53 ? exit(0) : 0;
 	if (key == 18)
 	{
 		init_default(c);
@@ -32,45 +56,12 @@ int		keyboard(int key, t_var *c)
 		init_default(c);
 		c->opt->proection = 2;
 	}
-	if (key == 87)
-		c->ang.y += 0.0523599;
-	if (key == 84)
-		c->ang.y -= 0.0523599;
-	if (key == 86)
-		c->ang.x += 0.0523599;
-	if (key == 83)
-		c->ang.x -= 0.0523599;
-	if (key == 88)
-		c->ang.z += 0.0523599;
-	if (key == 85)
-		c->ang.z -= 0.0523599;
-	if (key == 69)
-		c->opt->size *= 1.1;
-	if (key == 78)
-		c->opt->size *= 0.9;
-	if (key == 13)
-		c->opt->vert -= 10;
-	if (key == 1)
-		c->opt->vert += 10;
-	if (key == 0)
-		c->opt->hor -= 10;
-	if (key == 2)
-		c->opt->hor += 10;
-	if (key == 27)
-		c->opt->w *= 1.1;
-	if (key == 24)
-	{
-		c->opt->w *= 0.9;
-		if (c->opt->w < c->opt->z0)
-			c->opt->w = c->opt->z0;
-		if (c->opt->w < c->w || c->opt->w < c->h)
-			c->opt->w = c->w < c->h ? c->h : c->w;
-	}
+	keyboard2(key, c);
 	print_map(*c);
 	return (0);
 }
 
-int		mouse_press(int	button, int x, int y, t_var *c)
+int			mouse_press(int button, int x, int y, t_var *c)
 {
 	clear_image(c->img);
 	if (x >= 0 && x <= W_WIDTH && y >= 0 && y <= W_HEIGHT)
@@ -91,7 +82,7 @@ int		mouse_press(int	button, int x, int y, t_var *c)
 	return (0);
 }
 
-int		mouse_release(int button, int x, int y, t_var *c)
+int			mouse_release(int button, int x, int y, t_var *c)
 {
 	(void)button;
 	(void)x;
@@ -100,7 +91,7 @@ int		mouse_release(int button, int x, int y, t_var *c)
 	return (0);
 }
 
-int		mouse_move(int x, int y, t_var *c)
+int			mouse_move(int x, int y, t_var *c)
 {
 	clear_image(c->img);
 	if (x >= 0 && x <= W_WIDTH && y >= 0 && y <= W_HEIGHT)

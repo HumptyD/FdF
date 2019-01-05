@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 18:44:59 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/03 17:50:23 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 20:01:56 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		get_color(int start, int end, double percent)
 	int	r;
 	int	g;
 	int	b;
+
 	if (start == end)
 		return (start);
 	r = ft_lerpi((start >> 16) & 0xFF, (end >> 16) & 0xFF, percent);

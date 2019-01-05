@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/26 18:31:59 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/05 17:52:34 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 20:21:49 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,31 @@ static void	apply_scale(t_point *dot, t_var *c)
 	dot->y = dot->y + W_HEIGHT / 2 + c->opt->vert;
 }
 
-static void apply_scale_iso(t_point *dot, t_var *c)
+static void	apply_scale_iso(t_point *dot, t_var *c)
 {
 	dot->x *= c->opt->iso_scale * c->opt->size;
 	dot->y *= c->opt->iso_scale * c->opt->size;
 	dot->z *= c->opt->iso_scale * c->opt->size;
 	dot->x = dot->x + W_WIDTH / 2 + c->opt->hor;
 	dot->y = dot->y + W_HEIGHT / 2 + c->opt->vert;
+}
+
+static void	rotation_matrix2(t_point *dot, t_var *c, t_point v)
+{
+	if (c->opt->proection % 3 == 1)
+	{
+		dot->x = v.x * 0.8660 - v.y * 0.8660;
+		dot->y = v.x / 2 + v.y / 2 - v.z;
+		apply_scale_iso(dot, c);
+	}
+	else if (c->opt->proection % 3 == 2)
+	{
+		dot->x = v.x * c->opt->w / (c->opt->w - v.z);
+		dot->y = v.y * c->opt->w / (c->opt->w - v.z);
+		apply_scale_iso(dot, c);
+	}
+	else
+		apply_scale(dot, c);
 }
 
 void		rotation_matrix(t_point *dot, t_point ang, t_var *c)
@@ -55,18 +73,5 @@ void		rotation_matrix(t_point *dot, t_point ang, t_var *c)
 	v.x = dot->x;
 	v.y = dot->y;
 	v.z = dot->z;
-	if (c->opt->proection % 3 == 1)
-	{
-		dot->x = v.x * 0.8660 - v.y * 0.8660;
-		dot->y = v.x / 2 + v.y / 2 - v.z;
-		apply_scale_iso(dot, c);
-	}
-	else if (c->opt->proection % 3 == 2)
-	{
-		dot->x = v.x * c->opt->w / (c->opt->w - v.z);
-		dot->y = v.y * c->opt->w / (c->opt->w - v.z);
-		apply_scale_iso(dot, c);
-	}
-	else
-		apply_scale(dot, c);
+	rotation_matrix2(dot, c, v);
 }

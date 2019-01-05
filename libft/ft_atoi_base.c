@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/29 16:07:15 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/03 17:06:58 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 20:00:08 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	char_value(char c)
 		return (-1);
 }
 
-int	ft_atoi_base(const char *str, int base)
+int			ft_atoi_base(const char *str, int base)
 {
 	int	res;
 	int	temp;

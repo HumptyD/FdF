@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 18:42:55 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/05 16:25:48 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 20:05:41 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	set_color(t_var *c)
 static void	display_p(t_var *c, t_pline *var, double *percent)
 {
 	int		dx;
+
 	dx = c->b.x - c->a.x;
 	while (++var->x <= c->b.x)
 	{
@@ -48,8 +49,10 @@ static void	display_p(t_var *c, t_pline *var, double *percent)
 			ft_ilerp(var->x, c->a.x, c->b.x) :
 			ft_ilerp(var->y, c->a.y, c->b.y);
 		(var->steep) ?
-			set_pixel(c, var->y, var->x, get_color(c->a.color, c->b.color, *percent))
-			: set_pixel(c, var->x, var->y, get_color(c->a.color, c->b.color, *percent));
+			set_pixel(c, var->y, var->x,
+					get_color(c->a.color, c->b.color, *percent))
+			: set_pixel(c, var->x, var->y,
+					get_color(c->a.color, c->b.color, *percent));
 		var->error += var->derror;
 		if (var->error > dx)
 		{
@@ -97,11 +100,16 @@ void		print_map(t_var c)
 		c.seg = c.seg->next;
 	}
 	mlx_put_image_to_window(c.mlx, c.win, c.img->image, 0, 0);
-	mlx_string_put(c.mlx, c.win, 50, 50, 0xFFFFFF, "Move the figure - W, A, S, D");
-	mlx_string_put(c.mlx, c.win, 50, 65, 0xFFFFFF, "X rotation - 4, 1");
+	mlx_string_put(c.mlx, c.win,
+			50, 50, 0xFFFFFF, "Move the figure - W, A, S, D");
+	mlx_string_put(c.mlx, c.win,
+			50, 65, 0xFFFFFF, "X rotation - 4, 1");
 	mlx_string_put(c.mlx, c.win, 50, 80, 0xFFFFFF, "Y rotation - 5, 2");
 	mlx_string_put(c.mlx, c.win, 50, 95, 0xFFFFFF, "Z rotation - 6, 3");
-	mlx_string_put(c.mlx, c.win, 50, 110, 0xFFFFFF, "Scale - +, -, mouse scroll");
-	mlx_string_put(c.mlx, c.win, 50, 125, 0xFFFFFF, "Change proection - space");
-	mlx_string_put(c.mlx, c.win, 50, 140, 0xFFFFFF, "X, Y rotation - mouse left button");
+	mlx_string_put(c.mlx, c.win,
+			50, 110, 0xFFFFFF, "Scale - +, -, mouse scroll");
+	mlx_string_put(c.mlx, c.win,
+			50, 125, 0xFFFFFF, "Change proection - 1, 2, 3");
+	mlx_string_put(c.mlx, c.win,
+			50, 140, 0xFFFFFF, "X, Y rotation - mouse left button");
 }
