@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 14:41:18 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/04 20:03:55 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 18:56:40 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,20 @@ int		keyboard(int key, t_var *c)
 	clear_image(c->img);
 	if (key == 53)
 		exit(0);
-	if (key == 49)
+	if (key == 18)
 	{
 		init_default(c);
-		c->opt->proection = c->opt->proection == 1 ? 0 : 1;
+		c->opt->proection = 0;
+	}
+	if (key == 19)
+	{
+		init_default(c);
+		c->opt->proection = 1;
+	}
+	if (key == 20)
+	{
+		init_default(c);
+		c->opt->proection = 2;
 	}
 	if (key == 87)
 		c->ang.y += 0.0523599;
@@ -46,6 +56,16 @@ int		keyboard(int key, t_var *c)
 		c->opt->hor -= 10;
 	if (key == 2)
 		c->opt->hor += 10;
+	if (key == 27)
+		c->opt->w *= 1.1;
+	if (key == 24)
+	{
+		c->opt->w *= 0.9;
+		if (c->opt->w < c->opt->z0)
+			c->opt->w = c->opt->z0;
+		if (c->opt->w < c->w || c->opt->w < c->h)
+			c->opt->w = c->w < c->h ? c->h : c->w;
+	}
 	print_map(*c);
 	return (0);
 }

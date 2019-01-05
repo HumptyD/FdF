@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 16:08:26 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/04 22:17:36 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 18:12:37 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 # define W_WIDTH 2560
 # define W_HEIGHT 1300
-# define ALPHA 0.523599
 
 typedef struct	s_point
 {
@@ -82,6 +81,7 @@ typedef	struct	s_options
 	double		size;
 	double		scale;
 	double		iso_scale;
+	int			w;
 	int			max;
 	int			min;
 	int			hor;

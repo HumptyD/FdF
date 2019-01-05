@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 18:42:55 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/04 22:10:02 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 16:25:48 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,11 @@ void		print_map(t_var c)
 		c.seg = c.seg->next;
 	}
 	mlx_put_image_to_window(c.mlx, c.win, c.img->image, 0, 0);
+	mlx_string_put(c.mlx, c.win, 50, 50, 0xFFFFFF, "Move the figure - W, A, S, D");
+	mlx_string_put(c.mlx, c.win, 50, 65, 0xFFFFFF, "X rotation - 4, 1");
+	mlx_string_put(c.mlx, c.win, 50, 80, 0xFFFFFF, "Y rotation - 5, 2");
+	mlx_string_put(c.mlx, c.win, 50, 95, 0xFFFFFF, "Z rotation - 6, 3");
+	mlx_string_put(c.mlx, c.win, 50, 110, 0xFFFFFF, "Scale - +, -, mouse scroll");
+	mlx_string_put(c.mlx, c.win, 50, 125, 0xFFFFFF, "Change proection - space");
+	mlx_string_put(c.mlx, c.win, 50, 140, 0xFFFFFF, "X, Y rotation - mouse left button");
 }

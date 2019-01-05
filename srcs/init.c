@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 16:08:01 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/04 22:28:42 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 18:12:09 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static void	get_iso_scale(t_var *c)
 	double	x;
 	double	y;
 
-	x = sqrt(c->w * c->w + c->h * c->h + 2 * c->w * c->h * cos(2.0944));
-	y = c->opt->z0 + sqrt(c->w * c->w + c->h * c->h + 2 * c->w * c->h * cos(1.0472)) / 2;
+	x = sqrt(c->w * c->w + c->h * c->h - 2 * c->w * c->h / 2);
+	y = sqrt(c->w * c->w + c->h * c->h + 2 * c->w * c->h / 2);
+	y = c->opt->z0 > y ? c->opt->z0 + y : y;
 	x = W_WIDTH / x * 0.9;
 	y = W_HEIGHT / y * 0.9;
 	c->opt->iso_scale = x > y ? y : x;
@@ -33,6 +34,7 @@ void		init_var(t_var *c)
 	c->opt = ft_memalloc(sizeof(t_options));
 	c->opt->size = 1;
 	c->opt->hor = 0;
+	c->opt->w = 200;
 	c->opt->vert = 0;
 	c->opt->min = 2147483647;
 	c->opt->max = -2147483648;
@@ -58,6 +60,7 @@ void		init_default(t_var *c)
 	c->ang.x = 0.;
 	c->ang.y = 0.;
 	c->ang.z = 0.;
+	c->opt->w = 200;
 	c->opt->size = 1;
 	c->opt->hor = 0;
 	c->opt->vert = 0;
