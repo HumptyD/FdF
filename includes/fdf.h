@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 16:08:26 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/05 18:12:37 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 21:09:21 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 # include "mlx.h"
 # include "libft.h"
 # include "fcntl.h"
-# include <stdio.h>
 # include <math.h>
-# include <time.h>
 
 # define W_WIDTH 2560
 # define W_HEIGHT 1300
@@ -52,6 +50,7 @@ typedef struct	s_seg
 	t_list		*segment;
 	t_list		*obj;
 	t_list		*copy;
+	t_list		*temp;
 	int			n;
 }				t_seg;
 

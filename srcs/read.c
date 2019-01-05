@@ -6,11 +6,12 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 19:46:48 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/04 21:20:07 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 21:04:23 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#define ME "error: memory is not allocated"
 
 static int		read_color(char *str, t_var *c)
 {
@@ -38,16 +39,16 @@ static t_list	*get_segments(t_list **lst, int size)
 		if ((v.obj = ft_lst_n(v.copy, size)))
 		{
 			v.s.b = v.obj->content;
-			ft_lstadd(&v.segment, ft_lstnew(&v.s, sizeof(t_line)));
+			display_error(!(v.temp = ft_lstnew(&v.s, sizeof(t_line))), ME);
+			ft_lstadd(&v.segment, v.temp);
 		}
 		if (v.n % size != 0)
-		{
 			if ((v.obj = ft_lst_n(v.copy, 1)))
 			{
 				v.s.b = v.obj->content;
-				ft_lstadd(&v.segment, ft_lstnew(&v.s, sizeof(t_line)));
+				display_error(!(v.temp = ft_lstnew(&v.s, sizeof(t_line))), ME);
+				ft_lstadd(&v.segment, v.temp);
 			}
-		}
 		v.n++;
 		v.copy = v.copy->next;
 	}
@@ -58,6 +59,7 @@ static void		save_coords(char **td_arr, t_list **lst, int y, t_var *c)
 {
 	int		x;
 	t_point	point;
+	t_list	*temp;
 
 	x = -1;
 	while (td_arr[++x])
@@ -70,7 +72,9 @@ static void		save_coords(char **td_arr, t_list **lst, int y, t_var *c)
 		if (point.z < c->opt->min)
 			c->opt->min = point.z;
 		point.color = read_color(ft_strchr(td_arr[x], ','), c);
-		ft_lstadd(lst, ft_lstnew(&point, sizeof(t_point)));
+		temp = ft_lstnew(&point, sizeof(t_point));
+		display_error(!temp, ME);
+		ft_lstadd(lst, temp);
 	}
 }
 
@@ -91,8 +95,7 @@ void			read_map(int fd, t_list **lst, t_var *c)
 
 	while (get_next_line(fd, &line))
 	{
-		display_error(!(td_arr = ft_strsplit(line, ' ')),
-			"error: memory is not allocated");
+		display_error(!(td_arr = ft_strsplit(line, ' ')), ME);
 		if (c->w == -1)
 			c->w = count_points(td_arr);
 		display_error((c->w != count_points(td_arr)), "error: invalid file");

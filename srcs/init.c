@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 16:08:01 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/05 18:12:09 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/05 20:30:06 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void		init_var(t_var *c)
 	c->ang.x = 0.;
 	c->ang.y = 0.;
 	c->ang.z = 0.;
-	c->img = ft_memalloc(sizeof(t_img));
-	c->opt = ft_memalloc(sizeof(t_options));
+	display_error(!(c->img = ft_memalloc(sizeof(t_img))),
+			"error: memmory is not allocated");
+	display_error(!(c->opt = ft_memalloc(sizeof(t_options))),
+			"error: memmory is not allocated");
 	c->opt->size = 1;
 	c->opt->hor = 0;
 	c->opt->w = 200;
