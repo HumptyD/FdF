@@ -6,7 +6,7 @@
 /*   By: jlucas-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 18:42:55 by jlucas-l          #+#    #+#             */
-/*   Updated: 2019/01/05 20:05:41 by jlucas-l         ###   ########.fr       */
+/*   Updated: 2019/01/06 13:38:20 by jlucas-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,14 @@ void		print_map(t_var c)
 	mlx_string_put(c.mlx, c.win,
 			50, 50, 0xFFFFFF, "Move the figure - W, A, S, D");
 	mlx_string_put(c.mlx, c.win,
-			50, 65, 0xFFFFFF, "X rotation - 4, 1");
-	mlx_string_put(c.mlx, c.win, 50, 80, 0xFFFFFF, "Y rotation - 5, 2");
-	mlx_string_put(c.mlx, c.win, 50, 95, 0xFFFFFF, "Z rotation - 6, 3");
+			50, 65, 0xFFFFFF, "X rotation - num 4, 1");
+	mlx_string_put(c.mlx, c.win, 50, 80, 0xFFFFFF, "Y rotation - num 5, 2");
+	mlx_string_put(c.mlx, c.win, 50, 95, 0xFFFFFF, "Z rotation - num 6, 3");
 	mlx_string_put(c.mlx, c.win,
-			50, 110, 0xFFFFFF, "Scale - +, -, mouse scroll");
+			50, 110, 0xFFFFFF, "Scale - num +, num -, mouse scroll");
 	mlx_string_put(c.mlx, c.win,
 			50, 125, 0xFFFFFF, "Change proection - 1, 2, 3");
 	mlx_string_put(c.mlx, c.win,
 			50, 140, 0xFFFFFF, "X, Y rotation - mouse left button");
+	mlx_string_put(c.mlx, c.win, 50, 155, 0xFFFFFF, "Distance - +, -");
 }
